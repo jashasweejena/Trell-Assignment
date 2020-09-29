@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private val RECORD_REQUEST_CODE = 101
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
                     Toast.makeText(this, "Please grant the storage permission for accessing the files", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Permission granted successfully, please restart the app", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permission granted successfully, please restart the app if using for the first time", Toast.LENGTH_LONG).show();
                 }
             }
         }
