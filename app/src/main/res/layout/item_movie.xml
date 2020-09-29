@@ -18,5 +18,6 @@
         app:url = "@{v.location}"
         app:index="@{index}"
         android:layout_height="match_parent"
+        android:background="#000"
         app:resize_mode="fit" />
 </layout>
