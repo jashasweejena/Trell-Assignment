@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="video"
+            name="v"
             type="com.trell.assignment.models.Video" />
         <variable
             name="index"
@@ -15,7 +15,7 @@
         app:surface_type="texture_view"
         android:id="@+id/item_video_exoplayer"
         android:layout_width="match_parent"
-        app:url = "@{video.location}"
+        app:url = "@{v.location}"
         app:index="@{index}"
         android:layout_height="match_parent"
         app:resize_mode="fill" />

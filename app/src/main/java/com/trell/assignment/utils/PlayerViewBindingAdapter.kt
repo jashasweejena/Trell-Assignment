@@ -1,4 +1,4 @@
-package com.assignment.trell.utils
+package com.trell.assignment.utils
 
 import android.net.Uri
 import androidx.databinding.BindingAdapter

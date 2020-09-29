@@ -1,11 +1,11 @@
-package com.trell.viewmodels
+package com.trell.assignment.viewmodels
 
 import android.app.Application
 import android.content.Context
 import android.provider.MediaStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.trell.models.Video
+import com.trell.assignment.models.Video
 import java.util.*
 
 class VideoViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,8 +16,8 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
         if (videoList != null) {
             return
         }
+        videoList = getAllVideoPath(getApplication<Application>().applicationContext)
     }
-
 
     private fun getAllVideoPath(context: Context): MutableLiveData<List<Video?>> {
         val uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
@@ -28,15 +28,14 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
             while (cursor.moveToNext()) {
                 val video = Video()
                 video.location = cursor.getString(0)
-
+                
                 videoArrayList.add(video)
             }
             cursor.close()
         }
         val data = MutableLiveData<List<Video?>>()
-        data.value = videoArrayList
+        data.setValue(videoArrayList)
         return data
     }
-
 
 }

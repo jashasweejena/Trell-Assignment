@@ -1,4 +1,4 @@
-package com.assignment.trell.views
+package com.trell.assignment.views
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setupPermissions()
         setupObservers()
         setupRecyclerView()
         mVideoViewModel!!.videoList!!.observe(this, Observer { adapter!!.notifyDataSetChanged() })
@@ -50,5 +51,36 @@ class MainActivity : AppCompatActivity() {
         snapHelper.attachToRecyclerView(recyclerView!!)
         adapter = VideoAdapter(mVideoViewModel!!.videoList!!.value)
         recyclerView!!.adapter = adapter
+    }
+
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "Permission to record denied")
+            makeRequest()
+        }
+    }
+
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                RECORD_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            RECORD_REQUEST_CODE -> {
+
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(this, "Please grant the storage permission for accessing the files", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permission granted successfully, please restart the app", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
